@@ -1,0 +1,6 @@
+@AmiguLand.API_HostAddress = http://localhost:5075
+
+GET {{AmiguLand.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
