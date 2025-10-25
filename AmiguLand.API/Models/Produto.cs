@@ -17,8 +17,25 @@ public class Produto
     [StringLength(100)]
     public string Nome { get; set; }
 
-    [Required(ErrorMessage = "A descrição é obrigatória")]
     [StringLength(3000)]
     [Display(Name ="Descrição")]
     public string Descricao { get; set; }
+
+    [Required(ErrorMessage = "A quantidade é obrigatória")]
+    [Display(Name ="Quantidade")]
+    public int Qtde { get; set; }
+
+    [Required(ErrorMessage = "O valor do custo é obrigatório")]
+    [Column(TypeName = "decimal(12,2)")]
+    public decimal ValorCusto { get; set; } = 0;
+
+    [Required(ErrorMessage = "O valor da venda é obrigatória")]
+    [Column(TypeName = "decimal(12,2)")]
+    public decimal ValorVenda { get; set; }
+
+    [Required(ErrorMessage = "O status do destaque é obrigatório")]
+    public bool Destaque { get; set; } = false;
+
+    [StringLength(300)]
+    public string Foto { get; set; }
 }
