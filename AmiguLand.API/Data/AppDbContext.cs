@@ -121,7 +121,84 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 32.5M,
                 ValorVenda = 34.0M,
-            }
+            },
+
+            new Produto()
+            {
+                Id = 2,
+                CategoriaId = 1,
+                Nome = "Chewbacca",
+                Descricao = "Direto de uma galáxia muito, muito distante… Chewbacca chegou em versão chaveirinho amigurumi! Perfeito pra levar a Força geek sempre com você. Encomendas abertas! ",
+                Qtde = 1,
+                ValorCusto = 18.5M,
+                ValorVenda = 20.0M,
+            },
+
+            new Produto()
+            {
+                Id = 3,
+                CategoriaId = 2,
+                Nome = "Coelhinho",
+                Descricao = "Coelhinho estiloso com esse chapéuzinho fofo! Encomendas abertas!",
+                Qtde = 1,
+                ValorCusto = 15.5M,
+                ValorVenda = 18.0M,
+            },
+
+            new Produto()
+            {
+                Id = 4,
+                CategoriaId = 1,
+                Nome = "Lotso",
+                Descricao = "Lotso, direto do Toy Story pra AmiguLand! Fofo demais pra ser vilão. Feito à mão com carinho, encomendas abertas",
+                Qtde = 1,
+                ValorCusto = 45.5M,
+                ValorVenda = 55.0M,
+            },
+
+            new Produto()
+            {
+                Id = 5,
+                CategoriaId = 3,
+                Nome = "Iniciais MC",
+                Descricao = "Novidade na AmiguLand!! Agora você pode ter um chaveiro com a sua inicial",
+                Qtde = 1,
+                ValorCusto = 8M,
+                ValorVenda = 15.0M,
+            },
+
+            new Produto()
+            {
+                Id = 6,
+                CategoriaId = 1,
+                Nome = "Sulley Plush",
+                Descricao = "Fofura em versão pelúcia!",
+                Qtde = 1,
+                ValorCusto = 45.5M,
+                ValorVenda = 55.0M,
+            },
+
+            new Produto()
+            {
+                Id = 7,
+                CategoriaId = 1,
+                Nome = "Sulley",
+                Descricao = "Fofura em versão chaveiro!",
+                Qtde = 1,
+                ValorCusto = 35.5M,
+                ValorVenda = 40.0M,
+            },
+
+            new Produto()
+            {
+                Id = 8,
+                CategoriaId = 1,
+                Nome = "Patinho com faquinha",
+                Descricao = "Fofo? Sim. Ameaçador? Talvez. Patinho com faquinha na mão!",
+                Qtde = 1,
+                ValorCusto = 10.5M,
+                ValorVenda = 15.0M,
+            },
         };
         builder.Entity<Produto>().HasData(produtos);
     }
