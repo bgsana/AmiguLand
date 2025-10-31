@@ -103,6 +103,14 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Nome = "Letras",
                 Foto = null,
                 Cor = "#f695b9"
+            },
+            
+            new Categoria()
+            {
+                Id = 4,
+                Nome = "Outros",
+                Foto = null,
+                Cor = "#95f6ccff"
             }
         };
         builder.Entity<Categoria>().HasData(categorias);
@@ -121,6 +129,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 32.5M,
                 ValorVenda = 34.0M,
+                Foto = "/img/produtos/casalSnoopy.jpg"
             },
 
             new Produto()
@@ -132,6 +141,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 18.5M,
                 ValorVenda = 20.0M,
+                Foto = "/img/produtos/chewbacca.jpg"
             },
 
             new Produto()
@@ -143,6 +153,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 15.5M,
                 ValorVenda = 18.0M,
+                Foto = "/img/produtos/coelhinho.jpg"
             },
 
             new Produto()
@@ -154,6 +165,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 45.5M,
                 ValorVenda = 55.0M,
+                Foto = "/img/produtos/lotso.jpg"
             },
 
             new Produto()
@@ -165,6 +177,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 8M,
                 ValorVenda = 15.0M,
+                Foto = "/img/produtos/letrasMC.jpg"
             },
 
             new Produto()
@@ -176,6 +189,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 45.5M,
                 ValorVenda = 55.0M,
+                Foto = "/img/produtos/Sulley plush.jpg"
             },
 
             new Produto()
@@ -187,6 +201,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 35.5M,
                 ValorVenda = 40.0M,
+                Foto = "/img/produtos/Sulley.jpg"
             },
 
             new Produto()
@@ -198,6 +213,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 Qtde = 1,
                 ValorCusto = 10.5M,
                 ValorVenda = 15.0M,
+                Foto = "/img/produtos/Patinho com faquinha.jpg"
             },
         };
         builder.Entity<Produto>().HasData(produtos);
