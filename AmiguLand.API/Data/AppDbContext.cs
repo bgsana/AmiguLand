@@ -35,8 +35,8 @@ public class AppDbContext : IdentityDbContext<Usuario>
             },
             new IdentityRole() {
                Id = "ddf093a6-6cb5-4ff7-9a64-83da34aee005",
-               Name = "Usuário",
-               NormalizedName = "USUÁRIO"
+               Name = "Cliente",
+               NormalizedName = "CLIENTE"
             },
         ];
         builder.Entity<IdentityRole>().HasData(roles);

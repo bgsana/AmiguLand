@@ -91,7 +91,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "<NOME DO PROJETO> API",
+        Title = "AmiguLand API",
         Version = "v1",
         Description = "API de fornecimento de dados de produtos"
     });
@@ -136,7 +136,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "<NOME DO PROJETO> v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AmiguLand v1");
         c.RoutePrefix = string.Empty;
     });
 }

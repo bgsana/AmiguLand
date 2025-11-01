@@ -1,80 +1,135 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using AmiguLand.API.DTOs;
 using AmiguLand.API.Services.Interfaces;
+using AmiguLand.API.Models;
+using AmiguLand.API.Helpers;
 
-namespace AmiguLand.API.Controllers;
+namespace AmiguLand.API.Services.Implementations;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AuthService : IAuthService
 {
-    private readonly IAuthService _authService;
+    private readonly UserManager<Usuario> _userManager;
+    private readonly SignInManager<Usuario> _signInManager;
+    private readonly IJwtService _jwtService;
+    private readonly IFileService _fileService;
 
-    public AuthController(IAuthService authService)
+    public AuthService(
+        UserManager<Usuario> userManager,
+        SignInManager<Usuario> signInManager,
+        IJwtService jwtService,
+        IFileService fileService
+    )
     {
-        _authService = authService;
+        _userManager = userManager;
+        _signInManager = signInManager;
+        _jwtService = jwtService;
+        _fileService = fileService;
     }
 
-    /// <summary>
-    /// Registra um novo usuário
-    /// </summary>
-    [HttpPost("register")]
-    [Consumes("multipart/form-data")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromForm] RegisterDto registerDto)
+    public async Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        var existingUser = await _userManager.FindByEmailAsync(registerDto.Email);
+        if (existingUser != null)
+        {
+            throw new ArgumentException("Email já está em uso.");
+        }
 
-        var result = await _authService.RegisterAsync(registerDto);
-        if (result == null)
-            return BadRequest(new { message = "Falha ao registrar usuário. Email pode já estar em uso." });
+        // Salvar a foto se existir
+        string fotoPath = null;
+        if (registerDto.Foto != null)
+        {
+            fotoPath = await _fileService.SaveFileAsync(registerDto.Foto, "img/usuarios");
+        }
 
-        return Ok(result);
+        var user = new Usuario
+        {
+            UserName = registerDto.Email,
+            Email = registerDto.Email,
+            Nome = registerDto.Nome,
+            DataNascimento = registerDto.DataNascimento,
+            Foto = fotoPath
+        };
+
+        var result = await _userManager.CreateAsync(user, registerDto.Senha);
+        if (!result.Succeeded)
+        {
+            if (fotoPath != null)
+                await _fileService.DeleteFileAsync(fotoPath);
+
+            var errors = string.Join(", ", result.Errors.Select(e => TranslateIdentityErrors.TranslateErrorMessage(e.Code)));
+            throw new ArgumentException($"Falha ao criar usuário: {errors}");
+        }
+
+        await _userManager.AddToRoleAsync(user, "Cliente");
+
+        var userDto = new UserDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nome = user.Nome,
+            DataNascimento = user.DataNascimento,
+            Foto = fotoPath != null ? _fileService.GetFileUrl(fotoPath) : null,
+            Perfil = string.Join(", ", await _userManager.GetRolesAsync(user))
+        };
+        var token = _jwtService.GenerateToken(userDto);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Expiration = DateTime.UtcNow.AddMinutes(60),
+            User = userDto
+        };
     }
 
-    /// <summary>
-    /// Autentica um usuário
-    /// </summary>
-    [HttpPost("login")]
-    public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginDto loginDto)
+    public async Task<AuthResponseDto> LoginAsync(LoginDto loginDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        var result = await _authService.LoginAsync(loginDto);
-        if (result == null)
-            return Unauthorized(new { message = "Email ou senha inválidos." });
-
-        return Ok(result);
-    }
-
-    /// <summary>
-    /// Obtém informações do usuário atual
-    /// </summary>
-    [HttpGet("me")]
-    [Authorize]
-    public async Task<ActionResult<UserDto>> GetCurrentUser()
-    {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (string.IsNullOrEmpty(userId))
-            return Unauthorized();
-
-        var user = await _authService.GetUserByIdAsync(userId);
+        var user = await _userManager.FindByEmailAsync(loginDto.Email);
         if (user == null)
-            return NotFound(new { message = "Usuário não encontrado." });
+        {
+            throw new UnauthorizedAccessException("Usuário e/ou Senha Inválidos.");
+        }
 
-        return Ok(user);
+        var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Senha, false);
+        if (!result.Succeeded)
+        {
+            throw new UnauthorizedAccessException("Usuário e/ou Senha Inválidos.");
+        }
+
+        var userDto = new UserDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nome = user.Nome,
+            DataNascimento = user.DataNascimento,
+            Foto = !string.IsNullOrEmpty(user.Foto) ? _fileService.GetFileUrl(user.Foto) : null,
+            Perfil = string.Join(", ", await _userManager.GetRolesAsync(user))
+        };
+        var token = _jwtService.GenerateToken(userDto);
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Expiration = DateTime.UtcNow.AddMinutes(60),
+            User = userDto
+        };
     }
 
-    /// <summary>
-    /// Verifica se o token é válido
-    /// </summary>
-    [HttpGet("validate")]
-    [Authorize]
-    public ActionResult ValidateToken()
+    public async Task<UserDto> GetUserByIdAsync(string userId)
     {
-        return Ok(new { message = "Token válido", isValid = true });
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+        {
+            throw new KeyNotFoundException("Usuário não encontrado.");
+        }
+
+        return new UserDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nome = user.Nome,
+            DataNascimento = user.DataNascimento,
+            Foto = !string.IsNullOrEmpty(user.Foto) ? _fileService.GetFileUrl(user.Foto) : null,
+            Perfil = string.Join(", ", await _userManager.GetRolesAsync(user))
+        };
     }
 }

@@ -1,8 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmiguLand.API", "AmiguLand.API\AmiguLand.API.csproj", "{76551AEC-2023-A395-6722-134A2242DD26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmiguLand.UI", "AmiguLand.UI\AmiguLand.UI.csproj", "{EC0379D3-50B6-4182-83A1-BE93A5A5ED76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,6 +16,10 @@ Global
 		{76551AEC-2023-A395-6722-134A2242DD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76551AEC-2023-A395-6722-134A2242DD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76551AEC-2023-A395-6722-134A2242DD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC0379D3-50B6-4182-83A1-BE93A5A5ED76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC0379D3-50B6-4182-83A1-BE93A5A5ED76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC0379D3-50B6-4182-83A1-BE93A5A5ED76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC0379D3-50B6-4182-83A1-BE93A5A5ED76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

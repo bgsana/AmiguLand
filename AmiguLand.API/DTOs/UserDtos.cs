@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 namespace AmiguLand.API.DTOs;
 
 public class RegisterDto
