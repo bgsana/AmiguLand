@@ -53,8 +53,8 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 LockoutEnabled = true,
                 EmailConfirmed = true,
                 Nome = "Ana Lívia Borges da Silva",
-                DataNascimento = DateTime.Parse("05/08/1981"),
-                Foto = "/img/usuarios/avatar.png"
+                DataNascimento = DateTime.Parse("26/06/2008"),
+                Foto = "/img/usuarios/usuario.png"
             }
         ];
         foreach (var user in usuarios)
@@ -207,13 +207,61 @@ public class AppDbContext : IdentityDbContext<Usuario>
             new Produto()
             {
                 Id = 8,
-                CategoriaId = 1,
+                CategoriaId = 2,
                 Nome = "Patinho com faquinha",
                 Descricao = "Fofo? Sim. Ameaçador? Talvez. Patinho com faquinha na mão!",
                 Qtde = 1,
                 ValorCusto = 10.5M,
                 ValorVenda = 15.0M,
                 Foto = "/img/produtos/Patinho com faquinha.jpg"
+            },
+
+            new Produto()
+            {
+                Id = 9,
+                CategoriaId = 1,
+                Nome = "Banguela - Fúria da Noite",
+                Descricao = "Banguela - Fúria da Noite, personagem de Como Treinar Seu Dragão",
+                Qtde = 1,
+                ValorCusto = 30.5M,
+                ValorVenda = 40.0M,
+                Foto = "/img/produtos/Banguela.jpg"
+            },
+
+            new Produto()
+            {
+                Id = 10,
+                CategoriaId = 2,
+                Nome = "Água-Viva",
+                Descricao = "Pequena, fofa e cheia de charme. Chaveirinho de água-viva!",
+                Qtde = 1,
+                ValorCusto = 10.5M,
+                ValorVenda = 15.0M,
+                Foto = "/img/produtos/Banguela.jpg"
+            },
+
+            new Produto()
+            {
+                Id = 11,
+                CategoriaId = 1,
+                Nome = "Stitch",
+                Descricao = "Porque todo mundo precisa de um Stitch pra chamar de seu!",
+                Qtde = 1,
+                ValorCusto = 15.5M,
+                ValorVenda = 20.0M,
+                Foto = "/img/produtos/Banguela.jpg"
+            },
+
+            new Produto()
+            {
+                Id = 12,
+                CategoriaId = 2,
+                Nome = "Patinho com chapéu",
+                Descricao = "patinho com chapéu de sapinho!",
+                Qtde = 1,
+                ValorCusto = 10.5M,
+                ValorVenda = 15.0M,
+                Foto = "/img/produtos/Banguela.jpg"
             },
         };
         builder.Entity<Produto>().HasData(produtos);

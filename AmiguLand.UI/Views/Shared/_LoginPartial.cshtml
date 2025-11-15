@@ -1,9 +1,8 @@
 @using AmiguLand.UI.Services
-@using AmiguLand.UI.Services.Interfaces
 @inject IAuthService AuthService
 @{
     string foto = AuthService.GetUserFoto();
-    foto = string.IsNullOrEmpty(foto) ? "http://localhost:5187/img/usuarios/no-photo.png" : foto;
+    foto = string.IsNullOrEmpty(foto) ? "http://localhost:5058/img/usuarios/no-photo.png" : foto;
 }
 
 @if (AuthService.IsAuthenticated())

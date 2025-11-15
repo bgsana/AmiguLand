@@ -33,7 +33,7 @@ public class ApiSettings
   },
   "AllowedHosts": "*",
   "ApiSettings": {
-    "BaseUrl": "http://localhost:5187",
+    "BaseUrl": "http://localhost:5075",
     "TimeoutSeconds": 30
   }
 }
