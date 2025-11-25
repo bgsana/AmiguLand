@@ -39,7 +39,7 @@
 
 /* Hero section com fundo fixo */
 .bg-primary {
-  background-color: #0d6efd !important;
+  background-color: #75c1e7 !important;
 }
 
 /* Cards de produtos */
@@ -77,4 +77,23 @@
 /* Badges */
 .badge {
   font-weight: 500;
+}
+
+/* PERSONALIZAÇÃO NOSSA*/
+.btn-primary , .btn-dark , .btn-outline-primary {
+  background: #ac70e1 !important;
+  border-color: #9460c2 !important;
+  color: white;
+  justify-content: center;
+}
+
+
+.list-group-item .list-group-item-action .active{
+  background: #ac70e1 !important;
+  border-color: #ac70e1 !important; 
+}
+
+.navbar {
+  background: #ac70e1 !important;
+  border-color: #ac70e1 !important;
 }
