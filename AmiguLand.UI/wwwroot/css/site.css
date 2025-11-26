@@ -97,3 +97,13 @@
   background: #ac70e1 !important;
   border-color: #ac70e1 !important;
 }
+
+.bg-success{
+  background: #ac70e1 !important;
+  border-color: #ac70e1 !important;  
+}
+
+.bg-warning{
+  background: #f695b9 !important;
+  border-color: #f695b9 !important;    
+}
